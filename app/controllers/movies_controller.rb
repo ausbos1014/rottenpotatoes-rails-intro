@@ -10,12 +10,29 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
+  
   def index
     @movies = Movie.all
+    @sort=params[:sort]
+    @path = "movies_path"
+    if @sort == 'title'
+      @movies=Movie.order(title: :ASC) #.all.paginate(page: params[:page])
+    else 
+      @movies=Movie.order(release_date: :ASC) #.all.paginate(page: params[:page])
+    end
   end
 
   def new
     # default: render 'new' template
+  end
+
+  def sort(param)
+    if param==3
+     print("Success")
+    end 
+    #  @movie=Movie.sort(@movie.title) #correct this syntax
+   # @sort=print("Hello from controller")
+    
   end
 
   def create
@@ -41,5 +58,6 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
+
 
 end
