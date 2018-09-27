@@ -25,9 +25,16 @@ class MoviesController < ApplicationController
     end
 
     #if conditions for ratings
-    if @rating_boxes
-      @movies=Movie.where(:rating => @rating_boxes.keys)
-      session[:ratings]=@rating_boxes
+   # if session[:ratings]
+  #    @movies=Movie.where(:rating => session[:ratings].keys)
+   # elsif @rating_boxes
+  #    @movies=Movie.where(:rating => @rating_boxes.keys)
+  #    session[:ratings]=@rating_boxes
+  #  end
+    
+    if params[:ratings]
+      @movies=Movie.where(:rating => params[:ratings].keys)
+      session[:ratings]=params[:ratings]
     elsif session[:ratings]
       @movies=Movie.where(:rating => session[:ratings].keys)
     end 
