@@ -12,11 +12,7 @@ class MoviesController < ApplicationController
 
   
   def index
-<<<<<<< HEAD
-    #cookies['ratings'] = params[:ratings] #saves state of checkboxes
-=======
-    cookies['ratings'] = params[:ratings] #saves state of checkboxes
->>>>>>> parent of 69cb90b... Revert
+
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
     
