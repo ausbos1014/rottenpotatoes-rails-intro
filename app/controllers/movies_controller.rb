@@ -12,28 +12,33 @@ class MoviesController < ApplicationController
 
   
   def index
-    @movies = Movie.all
-    @sort=params[:sort]
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
     @rating_boxes=params[:ratings]
     
+    #update sort if params has changed. Keep with session otherwise.
+    if params[:sort]
+      @sort=params[:sort]
+      session[:sort]=params[:sort]
+    else
+      @sort=session[:sort]
+    end
 
+    #if conditions for ratings
     if @rating_boxes
       @movies=Movie.where(:rating => @rating_boxes.keys)
       session[:ratings]=@rating_boxes
-    #elsif session[:ratings]
-    #  @movies=Movie.where(:rating => session[:ratings].keys)
-    elsif @sort == 'title'
-
+    elsif session[:ratings]
+      @movies=Movie.where(:rating => session[:ratings].keys)
+    end 
+      
+    #if conditions for sort
+    if @sort == 'title'
+      @movies=Movie.order(title: :ASC).where(:rating=> session[:ratings].keys)
     elsif @sort == 'release_date' 
-      if session[:ratings]
-        @movies=Movie.order(release_date: :ASC).where(:rating=> session[:ratings].keys)
-      else
-        @movies=Movie.order(release_date: :ASC)
-      end
+      @movies=Movie.order(release_date: :ASC).where(:rating=> session[:ratings].keys)
     else
-      @moves=Movie.all
+      @movies=Movie.all
     end
     
   
