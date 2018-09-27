@@ -14,7 +14,8 @@ class MoviesController < ApplicationController
   def index
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
-    @rating_boxes=(params[:ratings].present? ? params[:ratings] : [])
+    @rating_boxes=params[:ratings]  #variable to simply store what ratings came back checked
+    @is_box_checked=(params[:ratings].present? ? params[:ratings] : []) #array to remember if box is checked
     
     
     
