@@ -14,6 +14,10 @@ class MoviesController < ApplicationController
   def index
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
+    @rating_boxes=params[:ratings]  #variable to simply store what ratings came back checked
+    @is_box_checked=(params[:ratings].present? ? params[:ratings] : []) #array to remember if box is checked
+    
+    
     
 
     
@@ -26,12 +30,13 @@ class MoviesController < ApplicationController
     end
 
     #if conditions for ratings
-    if params[:ratings]
-      @movies=Movie.where(:rating => params[:ratings].keys)
-      session[:ratings]=params[:ratings]
+    if @rating_boxes
+      @movies=Movie.where(:rating => @rating_boxes.keys)
+      session[:ratings]=@rating_boxes
     elsif session[:ratings]
       @movies=Movie.where(:rating => session[:ratings].keys)
     end 
+<<<<<<< HEAD
     
     if session[:ratings]
       #this array is to remember if a box is checked across sessions.
@@ -43,6 +48,9 @@ class MoviesController < ApplicationController
       
     
     
+=======
+      
+>>>>>>> parent of 447a36f... Check boxes now stay checked/unchecked across sessions and sorts.
     #if conditions for sort
     if @sort == 'title'
       if session[:ratings]
