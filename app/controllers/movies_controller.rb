@@ -22,13 +22,12 @@ class MoviesController < ApplicationController
     if @rating_boxes
       @movies=Movie.where(:rating => @rating_boxes.keys)
       session[:ratings]=@rating_boxes
-    elsif session[:ratings]
-      @movies=Movie.where(:rating => session[:ratings].keys)
-
+    #elsif session[:ratings]
+    #  @movies=Movie.where(:rating => session[:ratings].keys)
     elsif @sort == 'title'
-      @movies=Movie.order(title: :ASC)
+      @movies=Movie.order(title: :ASC).where(:rating=> session[:ratings].keys)
     elsif @sort == 'release_date' 
-      @movies=Movie.order(release_date: :ASC)
+      @movies=Movie.order(release_date: :ASC).where(:rating=> session[:ratings].keys)
     else
       @moves=Movie.all
     end
