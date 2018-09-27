@@ -34,9 +34,17 @@ class MoviesController < ApplicationController
       
     #if conditions for sort
     if @sort == 'title'
-      @movies=Movie.order(title: :ASC).where(:rating=> session[:ratings].keys)
+      if session[:ratings]
+        @movies=Movie.order(title: :ASC).where(:rating=> session[:ratings].keys)
+      else
+        @movies=Movie.order(title: :ASC)
+      end
     elsif @sort == 'release_date' 
-      @movies=Movie.order(release_date: :ASC).where(:rating=> session[:ratings].keys)
+      if session[:ratings]
+        @movies=Movie.order(release_date: :ASC).where(:rating=> session[:ratings].keys)
+      else
+        @movies=Movie.order(release_date: :ASC)
+      end
     else
       @movies=Movie.all
     end
