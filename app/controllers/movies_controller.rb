@@ -31,7 +31,10 @@ class MoviesController < ApplicationController
     elsif session[:ratings]
       @movies=Movie.where(:rating => session[:ratings].keys)
     end 
-      
+    
+    @is_it_checked=(params[:ratings].present? ? params[:ratings] : [])
+
+    
     #if conditions for sort
     if @sort == 'title'
       if session[:ratings]
