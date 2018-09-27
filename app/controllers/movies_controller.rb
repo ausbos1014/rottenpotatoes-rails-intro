@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
   def index
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
-    @rating_boxes=params[:ratings]
+    @rating_params=params[:ratings]
     
     #update sort if params has changed. Keep with session otherwise.
     if params[:sort]
@@ -24,19 +24,12 @@ class MoviesController < ApplicationController
       @sort=session[:sort]
     end
 
-    #if conditions for ratings
-   # if session[:ratings]
-  #    @movies=Movie.where(:rating => session[:ratings].keys)
-   # elsif @rating_boxes
-  #    @movies=Movie.where(:rating => @rating_boxes.keys)
-  #    session[:ratings]=@rating_boxes
-  #  end
     
     if params[:ratings]
-      @movies=Movie.where(:rating => params[:ratings].keys)
+      @movies=Movie.where(:rating=> params[:ratings].keys)
       session[:ratings]=params[:ratings]
     elsif session[:ratings]
-      @movies=Movie.where(:rating => session[:ratings].keys)
+      @movies=Movie.where(:rating=> session[:ratings].keys)
     end 
     
     @is_it_checked=(params[:ratings].present? ? params[:ratings] : [])
