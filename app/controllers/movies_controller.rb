@@ -15,11 +15,26 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     @sort=params[:sort]
     @path = "movies_path"
-    if @sort == 'title'
+    @all_ratings=Movie.select(:rating).map(&:rating).uniq
+    @rating_boxes=params[:ratings]
+    
+    
+    if @rating_boxes
+      @movies=Movie.where(:rating => @rating_boxes.keys)
+    elsif @sort == 'title'
       @movies=Movie.order(title: :ASC) #.all.paginate(page: params[:page])
-    else 
+    elsif @sort == 'release_date' 
       @movies=Movie.order(release_date: :ASC) #.all.paginate(page: params[:page])
+    else
+      @moves=Movie.all
     end
+    
+  
+
+    
+    
+    
+    
   end
 
   def new
