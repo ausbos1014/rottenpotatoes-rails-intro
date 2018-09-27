@@ -18,13 +18,17 @@ class MoviesController < ApplicationController
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
     @rating_boxes=params[:ratings]
     
-    
+
     if @rating_boxes
       @movies=Movie.where(:rating => @rating_boxes.keys)
+      session[:ratings]=@rating_boxes
+    elsif session[:ratings]
+      @movies=Movie.where(:rating => session[:ratings].keys)
+
     elsif @sort == 'title'
-      @movies=Movie.order(title: :ASC) #.all.paginate(page: params[:page])
+      @movies=Movie.order(title: :ASC)
     elsif @sort == 'release_date' 
-      @movies=Movie.order(release_date: :ASC) #.all.paginate(page: params[:page])
+      @movies=Movie.order(release_date: :ASC)
     else
       @moves=Movie.all
     end
