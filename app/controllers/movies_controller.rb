@@ -15,6 +15,8 @@ class MoviesController < ApplicationController
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
     
+
+    
     #update sort if params has changed. Keep with session otherwise.
     if params[:sort]
       @sort=params[:sort]
@@ -31,9 +33,14 @@ class MoviesController < ApplicationController
       @movies=Movie.where(:rating => session[:ratings].keys)
     end 
     
-    #this array is to remember if a box is checked across sessions.
-    #it is called in the view as part of the check box form.
-    @is_box_checked=(session[:ratings].present? ? session[:ratings] : [])
+    if session[:ratings]
+      #this array is to remember if a box is checked across sessions.
+      #it is called in the view as part of the check box form.
+      @is_box_checked=(session[:ratings].present? ? session[:ratings] : [])    
+    else
+      @is_box_checked=1
+    end
+      
     
     
     #if conditions for sort
