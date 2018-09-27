@@ -14,7 +14,9 @@ class MoviesController < ApplicationController
   def index
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
-    @rating_boxes=params[:ratings]
+    @rating_boxes=(params[:ratings].present? ? params[:ratings] : [])
+    
+    
     
     #update sort if params has changed. Keep with session otherwise.
     if params[:sort]
