@@ -25,11 +25,15 @@ class MoviesController < ApplicationController
     #elsif session[:ratings]
     #  @movies=Movie.where(:rating => session[:ratings].keys)
     elsif @sort == 'title'
+<<<<<<< HEAD
       if session[:ratings]
         @movies=Movie.order(title: :ASC).where(:rating=> session[:ratings].keys)
       else
         @movies=Movie.order(title: :ASC)
       end
+=======
+      @movies=Movie.order(title: :ASC).where(:rating=> session[:ratings].keys)
+>>>>>>> parent of 2622909... Sorting and rating filters are correctly saved across sessions and across resorts/re-filters.
     elsif @sort == 'release_date' 
       if session[:ratings]
         @movies=Movie.order(release_date: :ASC).where(:rating=> session[:ratings].keys)
