@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
     @path = "movies_path"
     @all_ratings=Movie.select(:rating).map(&:rating).uniq
     @rating_params=params[:ratings]
+    @movies=Movie.all
     
     #update sort if params has changed. Keep with session otherwise.
     if params[:sort]
@@ -48,8 +49,6 @@ class MoviesController < ApplicationController
       else
         @movies=Movie.order(release_date: :ASC)
       end
-    else
-      @movies=Movie.all
     end
     
   
