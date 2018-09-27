@@ -26,10 +26,10 @@ class MoviesController < ApplicationController
 
     
     if params[:ratings]
-      @movies=Movie.where(:rating=> params[:ratings].keys)
+      @movies=Movie.where(:rating => params[:ratings].keys)
       session[:ratings]=params[:ratings]
     elsif session[:ratings]
-      @movies=Movie.where(:rating=> session[:ratings].keys)
+      @movies=Movie.where(:rating => session[:ratings].keys)
     end 
     
     @is_it_checked=(params[:ratings].present? ? params[:ratings] : [])
