@@ -3,19 +3,7 @@
   Include:
   - @all_ratings.each do |rating|
     = rating
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    = check_box_tag "ratings[#{rating}]", rating, @is_box_checked.include?(rating)
-=======
     = check_box_tag "ratings[#{rating}]", 0, true, cookies['ratings']
->>>>>>> parent of 69cb90b... Revert
-=======
-    = check_box_tag "ratings[#{rating}]", 0, true, cookies['ratings']
->>>>>>> parent of 69cb90b... Revert
-=======
-    = check_box_tag "ratings[#{rating}]", 0, true, cookies['ratings']
->>>>>>> parent of 69cb90b... Revert
   = submit_tag 'Refresh', :id => "ratings_submit"
 
 %h1 All Movies
