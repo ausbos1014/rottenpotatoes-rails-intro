@@ -33,6 +33,8 @@ class MoviesController < ApplicationController
     elsif session[:ratings]
       @movies=Movie.where(:rating => session[:ratings].keys)
       @is_it_checked=(session[:ratings].present? ? session[:ratings] : [])
+    else
+      @is_it_checked=(params[:ratings].present? ? params[:ratings] : [])
     end 
     
     
